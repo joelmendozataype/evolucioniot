@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución del IoT — Línea del Tiempo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --bg2: #111118;
+            --bg3: #18181f;
+            --surface: #1e1e28;
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(255, 255, 255, 0.13);
+            --text: #e8e6f0;
+            --muted: #7a788a;
+            --dim: #4a4858;
+            --line: rgba(255, 255, 255, 0.06);
+
+            --concepto: #a78bfa;
+            --hardware: #34d399;
+            --protocolo: #60a5fa;
+            --aplicacion: #fbbf24;
+            --industria: #f87171;
+
+            --concepto-bg: rgba(167, 139, 250, 0.1);
+            --hardware-bg: rgba(52, 211, 153, 0.1);
+            --protocolo-bg: rgba(96, 165, 250, 0.1);
+            --aplicacion-bg: rgba(251, 191, 36, 0.1);
+            --industria-bg: rgba(248, 113, 113, 0.1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            padding: 80px 24px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 20% 50%, rgba(167, 139, 250, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 60% at 80% 30%, rgba(96, 165, 250, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 50% 80%, rgba(52, 211, 153, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border2);
+            border-radius: 99px;
+            padding: 6px 16px;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            font-family: 'Syne', sans-serif;
+        }
+        .hero-badge span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--concepto);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: .4;
+                transform: scale(.7);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -.02em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, .55) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--concepto), var(--protocolo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ── STATS ── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* ── FILTERS ── */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 0 24px 48px;
+        }
+
+        .filter-btn {
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border-radius: 99px;
+            border: 1px solid var(--border2);
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .filter-btn:hover {
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .filter-btn.active {
+            color: #fff;
+            border-color: transparent;
+        }
+        .filter-btn[data-cat="all"].active {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .filter-btn[data-cat="concepto"].active {
+            background: var(--concepto-bg);
+            border-color: rgba(167, 139, 250, .3);
+            color: var(--concepto);
+        }
+        .filter-btn[data-cat="hardware"].active {
+            background: var(--hardware-bg);
+            border-color: rgba(52, 211, 153, .3);
+            color: var(--hardware);
+        }
+        .filter-btn[data-cat="protocolo"].active {
+            background: var(--protocolo-bg);
+            border-color: rgba(96, 165, 250, .3);
+            color: var(--protocolo);
+        }
+        .filter-btn[data-cat="aplicacion"].active {
+            background: var(--aplicacion-bg);
+            border-color: rgba(251, 191, 36, .3);
+            color: var(--aplicacion);
+        }
+        .filter-btn[data-cat="industria"].active {
+            background: var(--industria-bg);
+            border-color: rgba(248, 113, 113, .3);
+            color: var(--industria);
+        }
+
+        /* ── BOTÓN INTEGRANTES ── */
+        .btn-integrantes {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 200;
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 99px;
+            border: 1px solid var(--border2);
+            background: rgba(30, 30, 40, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text);
+            cursor: pointer;
+            transition: all .25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+        .btn-integrantes:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(40, 40, 52, 0.85);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+            transform: translateY(-1px);
+        }
+        .btn-integrantes:active {
+            transform: scale(0.97);
+        }
+        .btn-integrantes .btn-icon-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--aplicacion);
+            animation: pulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        .btn-integrantes .btn-arrow {
+            display: inline-block;
+            transition: transform .25s;
+            font-size: 10px;
+            opacity: 0.6;
+        }
+        .btn-integrantes:hover .btn-arrow {
+            transform: translateY(1px);
+            opacity: 1;
+        }
+
+        /* ── MODAL OVERLAY ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(8, 8, 14, 0.82);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .35s ease, visibility .35s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* ── MODAL CARD ── */
+        .modal-card {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 20px;
+            padding: 36px 32px 32px;
+            max-width: 460px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+            transform: translateY(20px) scale(0.96);
+            transition: transform .4s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .35s ease;
+            opacity: 0;
+        }
+        .modal-overlay.active .modal-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border2);
+            background: var(--bg3);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            font-size: 16px;
+            line-height: 1;
+            font-family: 'Syne', sans-serif;
+        }
+        .modal-close:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.35);
+            background: var(--surface);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: -.01em;
+        }
+        .modal-subtitle {
+            font-size: 12px;
+            color: var(--dim);
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 24px;
+        }
+
+        .modal-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .modal-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            transition: all .2s;
+            cursor: default;
+        }
+        .modal-list li:hover {
+            border-color: var(--border2);
+            background: var(--bg3);
+            transform: translateX(2px);
+        }
+        .modal-list .member-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px 2px currentColor;
+        }
+        .modal-list .member-name {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: .01em;
+        }
+        .modal-list .member-role {
+            font-size: 11px;
+            color: var(--dim);
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            font-family: 'Syne', sans-serif;
+            margin-left: auto;
+            opacity: 0.7;
+        }
+
+        .modal-footer-note {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--dim);
+            letter-spacing: .03em;
+            font-family: 'Syne', sans-serif;
+        }
+
+        @media (max-width: 480px) {
+            .btn-integrantes {
+                top: 12px;
+                right: 12px;
+                padding: 8px 14px;
+                font-size: 10px;
+                gap: 5px;
+            }
+            .btn-integrantes .btn-icon-dot {
+                width: 5px;
+                height: 5px;
+            }
+            .modal-card {
+                padding: 26px 18px 22px;
+                border-radius: 16px;
+            }
+            .modal-list li {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+            .modal-list .member-name {
+                font-size: 13px;
+            }
+            .modal-list .member-role {
+                font-size: 10px;
+            }
+            .modal-close {
+                top: 10px;
+                right: 10px;
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* ── TIMELINE ── */
+        .timeline-outer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            position: relative;
+        }
+
+        .timeline-axis {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border2) 5%, var(--border2) 95%, transparent);
+            transform: translateX(-0.5px);
+        }
+
+        .decade-marker {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .decade-marker:first-child {
+            margin-top: 0;
+        }
+
+        .decade-pill {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--dim);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 99px;
+            padding: 5px 16px;
+        }
+
+        /* ── CARD ROW ── */
+        .tl-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .4s ease, transform .4s ease;
+        }
+        .tl-row.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .tl-row.left {
+            flex-direction: row-reverse;
+        }
+        .tl-row.right {
+            flex-direction: row;
+        }
+
+        .tl-card {
+            width: calc(50% - 36px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+            cursor: pointer;
+            transition: border-color .2s, background .2s, transform .2s;
+            position: relative;
+        }
+        .tl-card:hover {
+            border-color: var(--border2);
+            background: var(--bg3);
+            transform: translateY(-2px);
+        }
+        .tl-card.open {
+            border-color: var(--border2);
+            background: var(--bg2);
+        }
+
+        .tl-row.left .tl-card {
+            margin-right: 36px;
+            text-align: right;
+        }
+        .tl-row.right .tl-card {
+            margin-left: 36px;
+        }
+
+        /* Dot */
+        .tl-dot-wrap {
+            position: absolute;
+            left: 50%;
+            top: 22px;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tl-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+            transition: transform .2s;
+            box-shadow: 0 0 0 0 transparent;
+        }
+        .tl-row:hover .tl-dot {
+            transform: scale(1.5);
+        }
+        .tl-row.open-row .tl-dot {
+            transform: scale(1.8);
+            box-shadow: 0 0 12px 2px currentColor;
+        }
+
+        /* Tag */
+        .card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 99px;
+            margin-bottom: 10px;
+        }
+        .tl-row.left .card-tag {
+            float: right;
+            clear: both;
+        }
+
+        .card-year {
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dim);
+            margin-bottom: 4px;
+            display: block;
+        }
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .card-detail {
+            display: none;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-weight: 300;
+            text-align: left;
+        }
+        .card-detail.open {
+            display: block;
+        }
+
+        .card-expand-hint {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--dim);
+            font-family: 'Syne', sans-serif;
+            letter-spacing: .03em;
+        }
+        .tl-row.left .card-expand-hint {
+            justify-content: flex-end;
+        }
+        .card-expand-hint svg {
+            transition: transform .2s;
+        }
+        .tl-card.open .card-expand-hint svg {
+            transform: rotate(180deg);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--dim);
+            font-size: 12px;
+            font-family: 'Syne', sans-serif;
+            letter-spacing: .04em;
+        }
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        footer a:hover {
+            color: var(--text);
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--dim);
+            font-size: 14px;
+            display: none;
+        }
+        .empty.visible {
+            display: block;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 3px;
+        }
+
+        /* Connector line left/right cards */
+        .tl-row.left .tl-card::after {
+            content: '';
+            position: absolute;
+            right: -36px;
+            top: 28px;
+            width: 36px;
+            height: 1px;
+            background: var(--border);
+        }
+        .tl-row.right .tl-card::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 28px;
+            width: 36px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        @media (max-width: 640px) {
+            .timeline-axis {
+                left: 20px;
+            }
+            .tl-row {
+                flex-direction: column !important;
+                padding-left: 48px;
+            }
+            .tl-card {
+                width: 100% !important;
+                margin: 0 !important;
+                text-align: left !important;
+            }
+            .tl-card::before,
+            .tl-card::after {
+                display: none;
+            }
+            .tl-dot-wrap {
+                left: 20px;
+                top: 22px;
+            }
+            .card-tag {
+                float: none !important;
+            }
+            .card-expand-hint {
+                justify-content: flex-start !important;
+            }
+            .card-detail {
+                text-align: left !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── BOTÓN FLOTANTE INTEGRANTES ── -->
+    <button class="btn-integrantes" id="btnIntegrantes" aria-label="Ver integrantes del equipo">
+        <span class="btn-icon-dot"></span>
+        Integrantes
+        <span class="btn-arrow">▾</span>
+    </button>
+
+    <!-- ── MODAL ── -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <button class="modal-close" id="modalClose" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-title">Integrantes del Grupo</div>
+            <div class="modal-subtitle">Trabajo Grupal — Evolución del IoT</div>
+            <ul class="modal-list">
+                <li>
+                    <span class="member-dot" style="background:#a78bfa; color:#a78bfa;"></span>
+                    <span class="member-name">Mariano Silva Choque</span>
+                    <span class="member-role">Integrante</span>
+                </li>
+                <li>
+                    <span class="member-dot" style="background:#34d399; color:#34d399;"></span>
+                    <span class="member-name">Joel Mendoza Taype</span>
+                    <span class="member-role">Integrante</span>
+                </li>
+                <li>
+                    <span class="member-dot" style="background:#60a5fa; color:#60a5fa;"></span>
+                    <span class="member-name">Lisbeth Quispe Huaripata</span>
+                    <span class="member-role">Integrante</span>
+                </li>
+                <li>
+                    <span class="member-dot" style="background:#fbbf24; color:#fbbf24;"></span>
+                    <span class="member-name">Alvaro Menendez Cayetano</span>
+                    <span class="member-role">Integrante</span>
+                </li>
+            </ul>
+            <div class="modal-footer-note">Línea del tiempo del IoT &nbsp;·&nbsp; 1982 – 2025</div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-badge"><span></span> Historia tecnológica interactiva</div>
+        <h1>La Evolución del<br><em>Internet of Things</em></h1>
+        <p>De una máquina de Coca-Cola conectada en 1982 a 29 mil millones de dispositivos en 2025. Un recorrido por los hitos que transformaron el mundo físico en digital.</p>
+        <div class="stats">
+            <div class="stat"><div class="stat-num">43</div><div class="stat-label">años de historia</div></div>
+            <div class="stat"><div class="stat-num">19</div><div class="stat-label">hitos clave</div></div>
+            <div class="stat"><div class="stat-num">29B+</div><div class="stat-label">dispositivos en 2025</div></div>
+        </div>
+    </section>
+
+    <div class="filters">
+        <button class="filter-btn active" data-cat="all">Todos</button>
+        <button class="filter-btn" data-cat="concepto">Concepto</button>
+        <button class="filter-btn" data-cat="hardware">Hardware</button>
+        <button class="filter-btn" data-cat="protocolo">Protocolos</button>
+        <button class="filter-btn" data-cat="aplicacion">Aplicaciones</button>
+        <button class="filter-btn" data-cat="industria">Industria</button>
+    </div>
+
+    <div class="timeline-outer">
+        <div class="timeline-axis"></div>
+        <div id="timeline-content"></div>
+        <div class="empty" id="empty-state">No hay eventos en esta categoría.</div>
+    </div>
+
+    <footer>
+        <p>Línea del tiempo del IoT &nbsp;·&nbsp; <a href="#">1982 – 2025</a></p>
+    </footer>
+
+    <script>
+        const CATS = {
+            concepto: { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', label: 'Concepto' },
+            hardware: { color: '#34d399', bg: 'rgba(52,211,153,0.12)', label: 'Hardware' },
+            protocolo: { color: '#60a5fa', bg: 'rgba(96,165,250,0.12)', label: 'Protocolo' },
+            aplicacion: { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)', label: 'Aplicación' },
+            industria: { color: '#f87171', bg: 'rgba(248,113,113,0.12)', label: 'Industria' },
+        };
+
+        const EVENTS = [{
+            year: 1982,
+            title: 'Primera máquina conectada a internet',
+            summary: 'Una máquina expendedora de Coca-Cola en Carnegie Mellon fue modificada para reportar su inventario y temperatura en red.',
+            detail: 'Programadores de Carnegie Mellon conectaron la máquina de refrescos a ARPANET, permitiendo consultar remotamente cuántas bebidas quedaban y si estaban frías. Es considerado el primer objeto "inteligente" conectado a una red y el antecedente directo del IoT moderno.',
+            category: 'concepto'
+        }, {
+            year: 1989,
+            title: 'John Romkey conecta una tostadora por TCP/IP',
+            summary: 'Primera demostración pública de un electrodoméstico controlado remotamente a través de internet en la conferencia Interop.',
+            detail: 'En Interop 1989, John Romkey conectó una tostadora a internet usando TCP/IP. Al año siguiente añadió un brazo robótico para colocar el pan automáticamente. Es uno de los hitos fundacionales del IoT moderno y demostró que cualquier objeto podía ser parte de la red.',
+            category: 'concepto'
+        }, {
+            year: 1991,
+            title: 'World Wide Web — base de la conectividad global',
+            summary: 'Tim Berners-Lee publica la especificación de la WWW, creando la infraestructura sobre la que el IoT se construiría.',
+            detail: 'Aunque no es IoT en sí mismo, la Web aportó los protocolos y la arquitectura cliente-servidor que luego el IoT adoptaría. HTTP y HTML se convirtieron en pilares de la comunicación entre dispositivos, y la cultura de la conectividad global nació aquí.',
+            category: 'protocolo'
+        }, {
+            year: 1999,
+            title: 'Kevin Ashton acuña "Internet of Things"',
+            summary: 'El investigador del MIT propone el término IoT en una presentación sobre cadena de suministro con RFID para Procter & Gamble.',
+            detail: 'Ashton usó el término para describir sistemas donde los objetos físicos podían comunicarse con la red sin intervención humana. Su propuesta inicial se centraba en el uso de etiquetas RFID para rastrear productos en tiempo real. El nombre se quedó para siempre.',
+            category: 'concepto'
+        }, {
+            year: 2000,
+            title: 'LG lanza el primer refrigerador con internet',
+            summary: 'LG presenta el Internet Digital DIOS, el primer electrodoméstico de consumo masivo con conectividad a internet.',
+            detail: 'El refrigerador podía monitorear su contenido, crear listas de compras y conectarse a internet para acceder a recetas. Aunque era caro y poco adoptado en su momento, marcó el inicio de los electrodomésticos inteligentes como categoría de mercado.',
+            category: 'aplicacion'
+        }, {
+            year: 2003,
+            title: 'RFID se despliega masivamente',
+            summary: 'El Departamento de Defensa de EE. UU. y Walmart exigen RFID en sus cadenas de suministro, impulsando la tecnología globalmente.',
+            detail: 'RFID (Radio Frequency Identification) permitió rastrear objetos físicos sin contacto visual. Su adopción masiva creó el ecosistema de identificación de objetos que es base del IoT actual. Millones de pallets y productos comenzaron a "hablar" con los sistemas de gestión.',
+            category: 'hardware'
+        }, {
+            year: 2005,
+            title: 'ONU reporta el IoT en su informe anual',
+            summary: 'La Unión Internacional de Telecomunicaciones dedica su informe anual al Internet de las Cosas.',
+            detail: 'La ITU describió un mundo donde los objetos cotidianos estarían conectados en una red global. Fue clave para que gobiernos y empresas comenzaran a invertir en el sector, legitimando el IoT como prioridad estratégica internacional.',
+            category: 'industria'
+        }, {
+            year: 2007,
+            title: 'Lanzamiento del iPhone — la era móvil del IoT',
+            summary: 'El smartphone democratiza sensores, conectividad y apps, convirtiéndose en hub central del ecosistema IoT.',
+            detail: 'El iPhone integró GPS, acelerómetro, micrófono, cámara y conectividad en un dispositivo de bolsillo. Esto aceleró el desarrollo de sensores miniaturizados y la idea de que cualquier objeto podía tener "inteligencia". El smartphone se convirtió en el mando a distancia universal del mundo conectado.',
+            category: 'hardware'
+        }, {
+            year: 2008,
+            title: 'Dispositivos conectados superan a la población mundial',
+            summary: 'Por primera vez, el número de objetos conectados supera la cantidad de seres humanos en el planeta.',
+            detail: 'Cisco calculó que en 2008 había aproximadamente 12,5 mil millones de dispositivos conectados para 6,8 mil millones de personas. Este cruce histórico es considerado el nacimiento "real" del IoT como fenómeno de escala global. Los objetos superaron a las personas.',
+            category: 'industria'
+        }, {
+            year: 2011,
+            title: 'IPv6 — el combustible de la escala IoT',
+            summary: 'La adopción de IPv6 proporciona suficientes direcciones IP para conectar miles de millones de dispositivos sin límite.',
+            detail: 'IPv4 solo ofrecía ~4.300 millones de direcciones. IPv6 proporciona 340 undecillones de direcciones, eliminando prácticamente el límite de dispositivos conectables. Sin IPv6, el crecimiento masivo del IoT habría sido imposible.',
+            category: 'protocolo'
+        }, {
+            year: 2012,
+            title: 'Google Glass y el IoT wearable',
+            summary: 'Google presenta sus lentes inteligentes, popularizando la computación vestible conectada como concepto de masa.',
+            detail: 'Aunque Glass no logró adopción masiva, abrió el debate sobre la computación siempre presente y los wearables. Inspiró una generación de relojes inteligentes, monitores de salud y ropa conectada. El concepto de "llevar internet encima" llegó para quedarse.',
+            category: 'aplicacion'
+        }, {
+            year: 2013,
+            title: 'Google adquiere Nest — hogar inteligente en masa',
+            summary: 'Google compra Nest Labs por 3.200 millones de dólares, legitimando el mercado del hogar inteligente.',
+            detail: 'El termostato Nest aprendía los hábitos de sus usuarios para optimizar el consumo energético. La adquisición millonaria marcó la entrada de las grandes tecnológicas al IoT doméstico y disparó la inversión global en el sector. El hogar se volvió un campo de batalla tecnológico.',
+            category: 'aplicacion'
+        }, {
+            year: 2014,
+            title: 'Amazon Echo — la voz como interfaz IoT',
+            summary: 'Alexa convierte los altavoces inteligentes en centros de control de ecosistemas domésticos conectados.',
+            detail: 'Amazon Echo con Alexa popularizó la interfaz de voz para controlar dispositivos IoT: luces, termostatos, cámaras, cerraduras. También lanzó la era de los asistentes virtuales en el hogar. Hablarle a los objetos dejó de ser ciencia ficción.',
+            category: 'aplicacion'
+        }, {
+            year: 2016,
+            title: 'Ataque Mirai — la seguridad IoT en crisis',
+            summary: 'Una botnet de dispositivos IoT infectados derriba Twitter, Netflix y Reddit en un ataque DDoS masivo de 1,2 Tbps.',
+            detail: 'El malware Mirai comprometió cámaras IP, routers y DVRs con contraseñas por defecto. El ataque generó 1,2 Tbps de tráfico y evidenció la crítica falta de seguridad en dispositivos IoT. Impulsó regulaciones globales sobre ciberseguridad y cambió la conversación sobre el diseño seguro.',
+            category: 'industria'
+        }, {
+            year: 2017,
+            title: 'MQTT se convierte en estándar ISO',
+            summary: 'MQTT se convierte en el estándar ISO/IEC para comunicación ligera entre dispositivos IoT en entornos industriales.',
+            detail: 'MQTT (Message Queuing Telemetry Transport) fue diseñado para redes poco fiables con dispositivos de bajo consumo. Su estandarización aceleró el despliegue del IoT industrial, especialmente en manufactura, energía y transporte. Se convirtió en el lenguaje común de los sensores.',
+            category: 'protocolo'
+        }, {
+            year: 2019,
+            title: '5G — el turbo del IoT',
+            summary: 'El despliegue comercial del 5G abre la puerta a millones de dispositivos conectados con latencia menor a 1 milisegundo.',
+            detail: '5G ofrece latencias menores a 1ms y puede manejar hasta 1 millón de dispositivos por km². Esto habilita casos de uso críticos como cirugía remota, vehículos autónomos y ciudades inteligentes que el 4G no podía soportar. La velocidad dejó de ser el límite.',
+            category: 'protocolo'
+        }, {
+            year: 2021,
+            title: 'IoT en la pandemia — telemedicina y logística',
+            summary: 'El COVID-19 acelera la adopción del IoT en salud, monitoreo de pacientes remotos y cadenas de frío para vacunas.',
+            detail: 'La pandemia demostró el valor del IoT en salud: wearables de monitoreo, ventiladores conectados, sensores de ocupación y rastreo GPS para vacunas. Se aceleró 3-5 años la adopción del IoT médico. La crisis sanitaria fue un catalizador tecnológico sin precedentes.',
+            category: 'industria'
+        }, {
+            year: 2023,
+            title: 'IA generativa + IoT — la era inteligente',
+            summary: 'La integración de LLMs y visión artificial con dispositivos IoT abre una nueva dimensión de automatización autónoma.',
+            detail: 'La combinación de IA generativa con IoT permite que los dispositivos no solo recopilen datos, sino que los interpreten y actúen de forma autónoma. Desde fábricas que se autooptimizan hasta asistentes domésticos capaces de razonar en lenguaje natural sobre el estado del hogar.',
+            category: 'industria'
+        }, {
+            year: 2025,
+            title: '+29 mil millones de dispositivos conectados',
+            summary: 'El IoT supera los 29 mil millones de dispositivos activos en todo el mundo, con proyecciones de 50B para 2030.',
+            detail: 'En 2025, el IoT abarca hogares inteligentes, ciudades conectadas, industria 4.0, agricultura de precisión, salud digital y vehículos autónomos. El mercado global supera los 500 mil millones de dólares anuales y crece a doble dígito. Lo físico y lo digital son ya inseparables.',
+            category: 'industria'
+        }];
+
+        let activeFilter = 'all';
+
+        function getDecade(year) {
+            return Math.floor(year / 10) * 10;
+        }
+
+        function render(events) {
+            const container = document.getElementById('timeline-content');
+            const empty = document.getElementById('empty-state');
+            container.innerHTML = '';
+
+            if (events.length === 0) {
+                empty.classList.add('visible');
+                return;
+            }
+            empty.classList.remove('visible');
+
+            let lastDecade = null;
+            events.forEach((ev, i) => {
+                const decade = getDecade(ev.year);
+                if (decade !== lastDecade) {
+                    const marker = document.createElement('div');
+                    marker.className = 'decade-marker';
+                    marker.innerHTML = `<div class="decade-pill">Década ${decade}s</div>`;
+                    container.appendChild(marker);
+                    lastDecade = decade;
+                }
+
+                const side = i % 2 === 0 ? 'left' : 'right';
+                const c = CATS[ev.category];
+
+                const row = document.createElement('div');
+                row.className = `tl-row ${side}`;
+                row.dataset.id = i;
+
+                row.innerHTML = `
+                    <div class="tl-card" id="card-${i}" onclick="toggle(${i}, this)">
+                        <div class="card-tag" style="background:${c.bg}; color:${c.color}">${c.label}</div>
+                        <span class="card-year">${ev.year}</span>
+                        <div class="card-title">${ev.title}</div>
+                        <div class="card-summary">${ev.summary}</div>
+                        <div class="card-detail" id="det-${i}">${ev.detail}</div>
+                        <div class="card-expand-hint">
+                            <span>Ver más</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="tl-dot-wrap">
+                        <div class="tl-dot" style="background:${c.color}; color:${c.color}"></div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            requestAnimationFrame(() => {
+                const rows = container.querySelectorAll('.tl-row');
+                rows.forEach((row, i) => {
+                    if (row.classList.contains('decade-marker')) return;
+                    setTimeout(() => row.classList.add('visible'), i * 60);
+                });
+            });
+        }
+
+        function toggle(i, card) {
+            const det = document.getElementById('det-' + i);
+            const row = card.closest('.tl-row');
+            const isOpen = det.classList.contains('open');
+
+            document.querySelectorAll('.card-detail').forEach(d => d.classList.remove('open'));
+            document.querySelectorAll('.tl-card').forEach(c => c.classList.remove('open'));
+            document.querySelectorAll('.tl-row').forEach(r => r.classList.remove('open-row'));
+
+            if (!isOpen) {
+                det.classList.add('open');
+                card.classList.add('open');
+                row.classList.add('open-row');
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.cat;
+                const filtered = activeFilter === 'all' ?
+                    EVENTS :
+                    EVENTS.filter(e => e.category === activeFilter);
+                render(filtered);
+            });
+        });
+
+        function observeRows() {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.tl-row').forEach(r => obs.observe(r));
+        }
+
+        // ── MODAL LOGIC ──
+        const btnIntegrantes = document.getElementById('btnIntegrantes');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+
+        function openModal() {
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        btnIntegrantes.addEventListener('click', openModal);
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        render(EVENTS);
+        setTimeout(observeRows, 100);
+    </script>
+</body>
+</html>
